@@ -28,6 +28,7 @@ abstract class BaseFileCacheTest extends CacheTest
 
     protected function setUp() : void
     {
+        $GLOBALS['MATOMO_CACHE_ALLOWED_CLASSES_UNSERIALIZE'] = [\ArrayObject::class, \stdClass::class];
         do {
             $this->directory = sys_get_temp_dir() . '/doctrine_cache_' . uniqid();
         } while (file_exists($this->directory));
@@ -35,6 +36,8 @@ abstract class BaseFileCacheTest extends CacheTest
 
     protected function tearDown() : void
     {
+        unset($GLOBALS['MATOMO_CACHE_ALLOWED_CLASSES_UNSERIALIZE']);
+
         if (! is_dir($this->directory)) {
             return;
         }
