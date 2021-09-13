@@ -12,6 +12,12 @@ use const PHP_VERSION_ID;
  */
 class PhpFileCacheTest extends BaseFileCacheTest
 {
+    protected function setUp() : void
+    {
+        parent::setUp();
+        $GLOBALS['MATOMO_CACHE_ALLOWED_CLASSES_UNSERIALIZE'] = [\ArrayObject::class, \stdClass::class, NotSetStateClass::class, SetStateClass::class];
+    }
+
     public function provideDataToCache() : array
     {
         $data = parent::provideDataToCache();
